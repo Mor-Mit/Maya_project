@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>לומדה – בגרות הייטק</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      min-height: 300px;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    h1 {
+      margin-top: 0;
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+    button {
+      padding: 10px 18px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      background: #1f2937;
+      color: white;
+    }
+    button:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+    .step {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="app" class="container">
+  <!-- התוכן מתחלף פה -->
+</div>
+
+<script>
+  const screens = [
+    {
+      title: "ברוכים הבאים",
+      step: "פתיחה",
+      content: `
+        <p>
+        בלומדה הזו נלמד שלב־שלב איך להפיק נתוני תלמידים
+        במסלול <b>בגרות הייטק</b> מתוך מערכת משוב.
+        </p>
+        <p>
+        במקום קובץ וורד – תעברו מסכים קצרים וברורים.
+        </p>
+      `
+    },
+    {
+      title: "מה זה בגרות הייטק?",
+      step: "הגדרה",
+      content: `
+        <ul>
+          <li>מתמטיקה – 5 יח"ל</li>
+          <li>אנגלית – 5 יח"ל</li>
+          <li>פיזיקה <b>או</b> מדעי המחשב – 5 יח"ל</li>
+        </ul>
+      `
+    },
+    {
+      title: "שלב 1 – כניסה ליומן מחנך",
+      step: "יומן מחנך",
+      content: `
+        <ol>
+          <li>התחברו למערכת משוב</li>
+          <li>בחרו בתפריט הראשי: <b>יומן מחנך</b></li>
+          <li>סמנו שכבה רלוונטית ובחרו <b>כל השכבה</b></li>
+        </ol>
+      `
+    },
+    {
+      title: "שלב 2 – דוח קבוצות לימוד",
+      step: "דוח",
+      content: `
+        <p>
+        בתוך יומן מחנך בחרו <b>קבוצות לימוד</b>.
+        הדוח מציג את כל התלמידים וכל קבוצות הלימוד.
+        </p>
+      `
+    },
+    {
+      title: "שלב 3 – ניקוי הדוח",
+      step: "בחירת עמודות",
+      content: `
+        <p>
+        לחצו על גלגל השיניים → בחירת עמודות להצגה.
+        </p>
+        <p>
+        השאירו:
+        </p>
+        <ul>
+          <li>ת.ז.</li>
+          <li>מתמטיקה 5</li>
+          <li>אנגלית 5</li>
+          <li>פיזיקה</li>
+          <li>מדעי המחשב</li>
+        </ul>
+      `
+    },
+    {
+      title: "שלב 4 – סינון וייצוא",
+      step: "גם וגם",
+      content: `
+        <p>
+        בצעו סינון:
+        </p>
+        <ol>
+          <li>מתמטיקה 5 + אנגלית 5 + פיזיקה → ייצוא לאקסל</li>
+          <li>מתמטיקה 5 + אנגלית 5 + מדעי המחשב → ייצוא נוסף</li>
+        </ol>
+      `
+    },
+    {
+      title: "שלב 5 – איחוד באקסל",
+      step: "Remove Duplicates",
+      content: `
+        <p>
+        העתיקו את עמודת ת.ז משני הקבצים לאקסל חדש.
+        </p>
+        <p>
+        Data → Remove Duplicates
+        </p>
+        <p>
+        מספר הערכים הייחודיים = מספר תלמידי בגרות הייטק.
+        </p>
+      `
+    },
+    {
+      title: "סיימנו!",
+      step: "סיכום",
+      content: `
+        <p>
+        עכשיו יש לך מספר מדויק של תלמידים
+        במסלול בגרות הייטק בשכבה.
+        </p>
+        <p>אפשר לחזור להתחלה או לסגור.</p>
+      `
+    }
+  ];
+
+  let current = 0;
+
+  const app = document.getElementById("app");
+
+  function render() {
+    const s = screens[current];
+    app.innerHTML = `
+      <div class="step">${s.step} (${current + 1} / ${screens.length})</div>
+      <h1>${s.title}</h1>
+      ${s.content}
+      <div class="nav">
+        <button onclick="prev()" ${current === 0 ? "disabled" : ""}>קודם</button>
+        <button onclick="next()" ${current === screens.length - 1 ? "disabled" : ""}>הבא</button>
+      </div>
+    `;
+  }
+
+  function next() {
+    current++;
+    render();
+  }
+
+  function prev() {
+    current--;
+    render();
+  }
+
+  render();
+</script>
+
+</body>
+</html>
